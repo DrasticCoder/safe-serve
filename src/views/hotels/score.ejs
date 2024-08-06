@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= hotel.name %> | Score</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      width: 80%;
+      max-width: 800px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+    p {
+      color: #555;
+      font-size: 18px;
+      margin: 5px 0;
+    }
+    .score-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 20px auto;
+    }
+    .score-gauge {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(#007bff 0%, #eee 0%);
+      border: 10px solid #007bff;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+      transition: background 1s ease-in-out;
+      transform: rotate(-90deg);
+    }
+    .score-label {
+      font-size: 18px;
+      color: #333;
+      margin-top: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><%= hotel.name %></h1>
+    <p><%= hotel.location %></p>
+
+    <div class="score-container">
+      <div class="score-gauge" id="scoreGauge"></div>
+    </div>
+    <div class="score-label">
+      <strong>Score: </strong> <%= score %>
+    </div>
+
+    <br />
+    <a href="/hotels/<%= hotel._id %>">View Details</a>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var score = 8; // Score
+      var maxScore = 10; // Maximum score
+      var percentage = (score / maxScore) * 100;
+      var gauge = document.getElementById('scoreGauge');
+      gauge.style.background = `conic-gradient(#007bff ${percentage}%, #eee ${percentage}%)`;
+    });
+  </script>
+</body>
+</html>

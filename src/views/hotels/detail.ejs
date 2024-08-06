@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotel Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 80%;
+      max-width: 800px;
+      margin-top: 20px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+    p {
+      color: #555;
+      font-size: 18px;
+      margin: 5px 0;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    form {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><%= hotel.name %></h1>
+    <p><strong>FSSAI Document:</strong> <%= hotel.fssaiDocument %></p>
+    <p><strong>Rating Range:</strong> <%= hotel.ratingRange %></p>
+    <p><strong>Location:</strong> <%= hotel.location %></p>
+    <p><strong>Visitors:</strong> <%= hotel.visitorCount %></p>
+    <img id="qrCodeImage" src="<%= hotel.qrLink %>" alt="QR Code" />
+    
+    <button id="downloadQR">Download QR Code</button>
+    
+    <form action="/hotels/generate-qr/<%= hotel._id %>" method="post">
+      <button type="submit">Generate QR</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('downloadQR').addEventListener('click', function() {
+      var qrImage = document.getElementById('qrCodeImage');
+      var link = document.createElement('a');
+      link.href = qrImage.src;
+      link.download = 'hotel-qr-code.png'; // Name of the file to be downloaded
+      link.click();
+    });
+  </script>
+</body>
+</html>

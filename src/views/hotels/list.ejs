@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotel List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .container {
+      width: 80%;
+      max-width: 1200px;
+      background-color: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    li strong {
+      font-size: 20px;
+      color: #333;
+    }
+    li p {
+      margin: 5px 0;
+      font-size: 16px;
+      color: #555;
+    }
+    .button-container {
+      margin-top: 20px;
+    }
+    .button-container a {
+      text-decoration: none;
+    }
+    .button-container button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .button-container button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Hotel List</h1>
+    <div class="button-container">
+      <a href="/hotels/register">
+        <button>Create New Hotel</button>
+      </a>
+    </div>
+    <ul>
+      <% hotels.forEach(hotel => { %>
+        <li>
+          <strong><%= hotel.name %></strong>
+          <p>Visitors: <%= hotel.visitorCount %></p>
+          <a href="/hotels/<%= hotel._id %>">View Details</a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .form-group input.error, .form-group select.error {
+      border-color: red;
+    }
+    .form-group .error-message {
+      color: red;
+      font-size: 0.875em;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Register</h1>
+    <% //if (message) { %>
+      <p class="success-message"><%= // message %></p>
+    <% //} %>
+    <form action="/hotels/register" method="post" id="registerForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        <span class="error-message" id="nameError"></span>
+      </div>
+      <div class="form-group">
+        <label for="fssaiDocument">FSSAI Document</label>
+        <input type="text" id="fssaiDocument" name="fssaiDocument" required>
+        <span class="error-message" id="fssaiDocumentError"></span>
+      </div>
+      <div class="form-group">
+        <label for="ratingRange">Rating Range</label>
+        <input type="text" id="ratingRange" name="ratingRange" required>
+        <span class="error-message" id="ratingRangeError"></span>
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" required>
+        <span class="error-message" id="locationError"></span>
+      </div>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      // Clear previous errors
+      document.querySelectorAll('.error-message').forEach(function(elem) {
+        elem.textContent = '';
+      });
+
+      var isValid = true;
+
+      // Validate Name
+      var name = document.getElementById('name').value;
+      if (!name) {
+        document.getElementById('nameError').textContent = 'Name is required';
+        isValid = false;
+      }
+
+      // Validate FSSAI Document
+      var fssaiDocument = document.getElementById('fssaiDocument').value;
+      if (!fssaiDocument) {
+        document.getElementById('fssaiDocumentError').textContent = 'FSSAI Document is required';
+        isValid = false;
+      }
+
+      // Validate Rating Range
+      var ratingRange = document.getElementById('ratingRange').value;
+      if (!ratingRange) {
+        document.getElementById('ratingRangeError').textContent = 'Rating Range is required';
+        isValid = false;
+      }
+
+      // Validate Location
+      var location = document.getElementById('location').value;
+      if (!location) {
+        document.getElementById('locationError').textContent = 'Location is required';
+        isValid = false;
+      }
+
+      if (!isValid) {
+        event.preventDefault(); // Prevent form submission if validation fails
+      }
+    });
+  </script>
+</body>
+</html>
