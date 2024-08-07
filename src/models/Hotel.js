@@ -1,17 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-export interface IHotel extends Document {
-  name: string;
-  fssaiDocument: string;
-  ratingRange: string;
-  location: string;
-  qrLink?: string;
-  visitorCount?: number;
-}
-
-const HotelSchema: Schema = new Schema(
+const HotelSchema = new Schema(
   {
     name: { type: String, required: true },
+    description: { type: String, required: false},
     fssaiDocument: { type: String, required: true },
     ratingRange: { type: String, required: true },
     location: { type: String, required: true },
@@ -23,5 +15,5 @@ const HotelSchema: Schema = new Schema(
   }
 );
 
-const Hotel = mongoose.model<IHotel>("Hotel", HotelSchema);
+const Hotel = mongoose.model("Hotel", HotelSchema);
 export default Hotel;

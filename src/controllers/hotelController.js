@@ -1,11 +1,10 @@
-import { Request, Response } from 'express';
-import Hotel from '../models/Hotel';
+import Hotel from '../models/Hotel.js';
 import qr from 'qr-image';
 import path from 'path';
 import fs from 'fs';
 
 // List all hotels with analytics
-export const listHotels = async (req: Request, res: Response) => {
+export const listHotels = async (req, res) => {
   try {
     const hotels = await Hotel.find();
     res.render('hotels/list', { hotels });
@@ -15,7 +14,7 @@ export const listHotels = async (req: Request, res: Response) => {
 };
 
 // Register a new hotel
-export const registerHotel = async (req: Request, res: Response) => {
+export const registerHotel = async (req, res) => {
   const { name, fssaiDocument, ratingRange, location } = req.body;
   try {
     const newHotel = new Hotel({ name, fssaiDocument, ratingRange, location });
@@ -27,7 +26,7 @@ export const registerHotel = async (req: Request, res: Response) => {
   }
 };
 
-export const getHotelScore = async(req: Request, res: Response) => {
+export const getHotelScore = async(req, res) => {
   const { hotelId } = req.params;
 
   // Calculate score
@@ -51,12 +50,12 @@ hotel.visitorCount = (hotel.visitorCount || 0) + 1;
   res.render('hotels/score', { hotel, score });
 }
 
-export const getRegsiter = (req: Request, res: Response) => {
+export const getRegsiter = (req, res) => {
   res.render('hotels/register');
 }
 
 // Generate QR code for a hotel
-export const generateQR = async (req: Request, res: Response) => {
+export const generateQR = async (req, res) => {
   const { hotelId } = req.params;
   // try {
     const hotel = await Hotel.findById(hotelId);
@@ -84,7 +83,7 @@ export const generateQR = async (req: Request, res: Response) => {
 };
 
 // Get hotel information by QR code
-export const getHotelInfo = async (req: Request, res: Response) => {
+export const getHotelInfo = async (req, res) => {
   const { hotelId } = req.params;
   try {
     const hotel = await Hotel.findById(hotelId);

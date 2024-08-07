@@ -6,7 +6,7 @@ import {
   getHotelInfo,
   getHotelScore,
   getRegsiter,
-} from "../controllers/hotelController";
+} from "../controllers/hotelController.js";
 
 const router = Router();
 
