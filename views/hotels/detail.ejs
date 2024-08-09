@@ -2,10 +2,11 @@
 <html>
 <head>
   <title>Hotel Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #fddecc;
       margin: 0;
       padding: 0;
       display: flex;
@@ -17,18 +18,20 @@
       background-color: #fff;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 80%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
       max-width: 800px;
       margin-top: 20px;
+      box-sizing: border-box;
     }
     h1 {
       color: #333;
       margin-bottom: 15px;
+      font-size: 24px; /* Adjust font size */
     }
     p {
       color: #555;
-      font-size: 18px;
+      font-size: 18px; /* Adjust font size */
       margin: 5px 0;
     }
     img {
@@ -39,21 +42,43 @@
       margin: 15px 0;
     }
     button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
       padding: 10px 20px;
-      border-radius: 5px;
+      font-size: 16px; /* Adjust font size */
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 16px;
-      margin: 10px;
-      transition: background-color 0.3s ease;
+      margin-top: 20px;
     }
-    button:hover {
-      background-color: #0056b3;
+    .button-primary {
+      background-color: #ff9900;
+      color: #fff;
+    }
+    .button-secondary {
+      background-color: #f4f4f4;
+      color: #000;
     }
     form {
       margin-top: 20px;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 16px;
+      }
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+      .container {
+        padding: 15px;
+      }
+      img {
+        margin: 10px 0;
+      }
     }
   </style>
 </head>
@@ -66,10 +91,9 @@
     <p><strong>Visitors:</strong> <%= hotel.visitorCount %></p>
     <img id="qrCodeImage" src="<%= hotel.qrLink %>" alt="QR Code" />
     
-    <button id="downloadQR">Download QR Code</button>
-    
     <form action="/hotels/generate-qr/<%= hotel._id %>" method="post">
-      <button type="submit">Generate QR</button>
+      <button type="submit" class="button-secondary">Generate QR</button>
+      <button id="downloadQR" type="button" class="button-primary">Download QR Code</button>
     </form>
   </div>
 

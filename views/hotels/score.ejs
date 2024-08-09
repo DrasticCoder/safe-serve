@@ -1,91 +1,222 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= hotel.name %> | Score</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .container {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      margin-top: 20px;
-      width: 80%;
-      max-width: 800px;
-    }
-    h1 {
-      color: #333;
-      margin-bottom: 15px;
-    }
-    p {
-      color: #555;
-      font-size: 18px;
-      margin: 5px 0;
-    }
-    .score-container {
-      position: relative;
-      width: 150px;
-      height: 150px;
-      margin: 20px auto;
-    }
-    .score-gauge {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: conic-gradient(#007bff 0%, #eee 0%);
-      border: 10px solid #007bff;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-      transition: background 1s ease-in-out;
-      transform: rotate(-90deg);
-    }
-    .score-label {
-      font-size: 18px;
-      color: #333;
-      margin-top: 10px;
-    }
-    a {
-      text-decoration: none;
-      color: #007bff;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <title><%= hotel.name %> | Score</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fddecc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #555;
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .score-gauge {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#007bff 0%, #eee 0%);
+            border: 10px solid #007bff;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: background 1s ease-in-out;
+            transform: rotate(-90deg);
+            margin: 20px 0;
+        }
+
+        .score-wrap {
+            margin-top: -5rem;
+            position: relative;
+        }
+        .score-wrap h1 {
+            margin-bottom: 0;
+            font-size: 48px;
+        }
+        .score-wrap p {
+            font-size: 18px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #ff9900;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        /* Accordion Styles */
+
+        .accordion-content {
+            padding: 0 15px;
+            display: none;
+            overflow: hidden;
+            background-color: #fffdfd;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .accordion-content p {
+            margin: 10px 0;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .score-wrap h1 {
+                font-size: 24px;
+            }
+            .container {
+                padding: 10px;
+            }
+            .button, .button-secondary {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            #gaugeCanvas {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gaugeJS/dist/gauge.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1><%= hotel.name %></h1>
-    <p><%= hotel.location %></p>
+    <div class="container">
+        <h1><%= hotel.name %></h1>
+        <p><%= hotel.location %></p>
 
-    <div class="score-container">
-      <div class="score-gauge" id="scoreGauge"></div>
+        <div id="gaugeContainer">
+            <canvas id="gaugeCanvas" width="400" height="200"></canvas>
+        </div>
+        <div class="score-wrap">
+            <h1 class="score">8.3</h1>
+            <p>Hygiene Score</p>
+        </div>
+        <a class="button-secondary" href="/hotels/<%= hotel._id %>">View Details</a>
+            <a href="https://www.google.com/search?q=<%= hotel.name %>" target="_blank" class="button">Add Review</a>
+
+        <button class="accordion-button button-secondary">More info</button>
+        <div class="accordion-content">
+            <p>Discover more about our commitment to high hygiene standards and how we ensure top-notch cleanliness at all times.</p>
+            <p>Our team works tirelessly to maintain these standards and provide you with the best experience.</p>
+            <p>Feel free to reach out with any questions or feedback!</p>
+        </div>
     </div>
-    <div class="score-label">
-      <strong>Score: </strong> <%= score %>
-    </div>
 
-    <br />
-    <a href="/hotels/<%= hotel._id %>">View Details</a>
-  </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Gauge options
+            var opts = {
+                angle: -0.2,
+                lineWidth: 0.15,
+                radiusScale: 1,
+                pointer: {
+                    length: 0.4,
+                    strokeWidth: 0.031,
+                    color: "#000000",
+                },
+                limitMax: false,
+                limitMin: false,
+                colorStart: "#6FADCF",
+                colorStop: "#8FC0DA",
+                strokeColor: "#E0E0E0",
+                generateGradient: true,
+                percentColors: [
+                    [0.0, "#ff0000"],
+                    [0.5, "#f9c802"],
+                    [1.0, "#a9d70b"],
+                ],
+                highDpiSupport: true,
+            };
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var score = 8; // Score
-      var maxScore = 10; // Maximum score
-      var percentage = (score / maxScore) * 100;
-      var gauge = document.getElementById('scoreGauge');
-      gauge.style.background = `conic-gradient(#007bff ${percentage}%, #eee ${percentage}%)`;
-    });
-  </script>
+            // Target your canvas element
+            var target = document.getElementById("gaugeCanvas");
+
+            // Create a new gauge
+            var gauge = new Gauge(target).setOptions(opts);
+
+            // Set the max value of the gauge
+            gauge.maxValue = 3000;
+            gauge.setMinValue(0);
+
+            // Set animation speed
+            gauge.animationSpeed = 20;
+
+            // Set the actual value
+            gauge.set(2500);
+
+            // Function to draw the rating labels
+            function drawLabels() {
+                var ctx = target.getContext("2d");
+                ctx.font = "12px Arial";
+                ctx.fillStyle = "#000000";
+                ctx.textAlign = "center";
+
+                var centerX = target.width / 2;
+                var centerY = target.height / 1.5;
+                var radius = 90;
+
+                for (var i = 0; i <= 10; i++) {
+                    var angle = Math.PI / 2 + (i * Math.PI) / 11;
+                    var x = centerX + radius * Math.cos(angle);
+                    var y = centerY - radius * Math.sin(angle);
+
+                    ctx.fillText(i, x, y);
+                }
+            }
+
+            // Draw the labels
+            drawLabels();
+
+            // Accordion functionality
+            var acc = document.getElementsByClassName("accordion-button");
+            for (var i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
