@@ -70,11 +70,6 @@
         <span class="error-message" id="nameError"></span>
       </div>
       <div class="form-group">
-        <label for="fssaiDocument">FSSAI Document</label>
-        <input type="text" id="fssaiDocument" name="fssaiDocument" required>
-        <span class="error-message" id="fssaiDocumentError"></span>
-      </div>
-      <div class="form-group">
         <label for="ratingRange">Rating Range</label>
         <input type="text" id="ratingRange" name="ratingRange" required>
         <span class="error-message" id="ratingRangeError"></span>
@@ -101,13 +96,6 @@
       var name = document.getElementById('name').value;
       if (!name) {
         document.getElementById('nameError').textContent = 'Name is required';
-        isValid = false;
-      }
-
-      // Validate FSSAI Document
-      var fssaiDocument = document.getElementById('fssaiDocument').value;
-      if (!fssaiDocument) {
-        document.getElementById('fssaiDocumentError').textContent = 'FSSAI Document is required';
         isValid = false;
       }
 

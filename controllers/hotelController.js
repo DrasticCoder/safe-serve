@@ -20,9 +20,9 @@ export const listHotels = async (req, res) => {
 
 // Register a new hotel
 export const registerHotel = async (req, res) => {
-  const { name, fssaiDocument, ratingRange, location } = req.body;
+  const { name, ratingRange, location } = req.body;
   try {
-    const newHotel = new Hotel({ name, fssaiDocument, ratingRange, location });
+    const newHotel = new Hotel({ name, ratingRange, location });
     await newHotel.save();
     res.redirect('/hotels');
   } catch (error) {
@@ -93,3 +93,22 @@ export const getHotelInfo = async (req, res) => {
     res.status(500).json({ error: 'Error fetching hotel info' });
   }
 };
+
+export const addReview = async (req, res) => {
+  const { hotelId } = req.params;
+  const { rating, comment } = req.body;
+
+  try {
+    const hotel = await Hotel.findById(hotelId);
+    if (!hotel) {
+      return res.status(404).json({ error: 'Hotel not found' });
+    }
+
+    hotel.reviews.push({ rating, comment });
+    await hotel.save();
+    // res.redirect(`/hotels/${hotelId}`);
+    res.json({ message: 'Review added successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error adding review' });
+  }
+}

@@ -6,6 +6,7 @@ import {
   getHotelInfo,
   getHotelScore,
   getRegsiter,
+  addReview
 } from "../controllers/hotelController.js";
 
 const router = Router();
@@ -21,6 +22,9 @@ router.route("/register")
 router.post("/generate-qr/:hotelId", generateQR);
 
 router.get("/score/:hotelId",getHotelScore)
+
+router.post("/review/:hotelId",addReview);
+
 // Get hotel information by QR code
 router.get("/:hotelId", getHotelInfo);
 
